@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Data Science Career Accelerator - Study Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #192735; /* Dark Navy/Teal */
+            --primary-light: #E8F5F3; /* Minty White */
+            --accent: #FF5A5F; /* Coral/Orange */
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-dark);
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-text-cambridge {
+            font-family: 'Merriweather', serif;
+        }
+        
+        .logo-divider {
+            height: 20px;
+            width: 1px;
+            background: #ccc;
+        }
+
+        .cta-button {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #e04e53;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 4rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 500px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            color: var(--text-main);
+        }
+
+        .hero-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Section */
+        .stats-bar {
+            background-color: var(--primary-light);
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-item p {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Curriculum Section */
+        .curriculum-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .curriculum-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .curriculum-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Accordion */
+        .module-container {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .module-header {
+            background-color: var(--white);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .module-header:hover {
+            background-color: #f9f9f9;
+        }
+
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .module-duration {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .module-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background-color: #fafafa;
+            border-top: 1px solid transparent;
+        }
+
+        .module-content.active {
+            border-top: 1px solid var(--border);
+        }
+
+        .week-list {
+            padding: 1.5rem 2rem;
+            list-style: none;
+        }
+
+        .week-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dotted var(--border);
+        }
+
+        .week-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .week-header {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .day-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 3px solid var(--primary-dark);
+        }
+
+        .day-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .day-topic {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .day-meta {
+            font-size: 0.8rem;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <span class="logo-text-cambridge">UNIVERSITY OF CAMBRIDGE</span>
+            <div class="logo-divider"></div>
+            <span>FourthRev</span>
+        </div>
+        <a href="#" class="cta-button">Apply Now</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Become a Data Scientist in 7 Months</h1>
+            <p>A comprehensive, career-focused accelerator designed to take you from beginner to job-ready data scientist.</p>
+            <p><strong>Detailed Study Plan • Python • Machine Learning • AI</strong></p>
+        </div>
+        <div class="hero-form">
+            <h3>Get the Syllabus</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Enter your details to download the full breakdown.</p>
+            <input type="text" placeholder="First Name" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            <input type="email" placeholder="Email Address" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            <button class="cta-button" style="width: 100%; border: none; cursor: pointer;">Download Now</button>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="stat-item">
+            <h3>7</h3>
+            <p>Months</p>
+        </div>
+        <div class="stat-item">
+            <h3>20+</h3>
+            <p>Hours/Week</p>
+        </div>
+        <div class="stat-item">
+            <h3>28</h3>
+            <p>Weeks of Content</p>
+        </div>
+        <div class="stat-item">
+            <h3>196</h3>
+            <p>Daily Lessons</p>
+        </div>
+    </section>
+
+    <section class="curriculum-section">
+        <div class="curriculum-header">
+            <h2>Programme Curriculum</h2>
+            <p>Explore our module-by-module breakdown of what you'll learn.</p>
+        </div>
+        
+        <div id="accordion-container">
+            <!-- Content populated by JS -->
+        </div>
+
+    </section>
+
+    <script>
+        // Data from plan_data.py
+        const PLAN_DATA = {
+    "title": "Become a Data Scientist in 7 Months - Detailed Study Plan",
+    "modules": [
+        {
+            "name": "Module 1: Statistics & Core Data Science Techniques",
+            "duration": "Weeks 1-6 (Month 1 & half of Month 2)",
+            "weeks": [
+                {
+                    "week_num": 1,
+                    "theme": "Python Basics for Data Science",
+                    "days": [
+                        {
+                            "day": "Day 1", 
+                            "topic": "Python Setup & Basics", 
+                            "time": "2.5h"
+                        },
+                        {
+                            "day": "Day 2", 
+                            "topic": "Variables & Data Types", 
+                            "time": "2.5h"
+                        },
+                        {
+                            "day": "Day 3", 
+                            "topic": "Control Flow (If/Else, Loops)", 
+                            "time": "2.5h"
+                        },
+                        {
+                            "day": "Day 4", 
+                            "topic": "Functions & Modules", 
+                            "time": "2.5h"
+                        },
+                        {
+                            "day": "Day 5", 
+                            "topic": "Data Structures (Lists, Dicts)", 
+                            "time": "2.5h"
+                        },
+                        {
+                            "day": "Day 6", 
+                            "topic": "Week 1 Review & Mini-Project", 
+                            "time": "3h"
+                        },
+                        {
+                            "day": "Day 7", 
+                            "topic": "Rest Day", 
+                            "time": "0h"
+                        }
+                    ]
+                },
+                {
+                    "week_num": 2,
+                    "theme": "NumPy & Pandas Basics",
+                    "days": [
+                        {"day": "Day 8", "topic": "Intro to NumPy Arrays", "time": "2.5h"},
+                        {"day": "Day 9", "topic": "NumPy Indexing & Broadcasting", "time": "2.5h"},
+                        {"day": "Day 10", "topic": "Intro to Pandas DataFrames", "time": "2.5h"},
+                        {"day": "Day 11", "topic": "Pandas Selection & Filtering", "time": "2.5h"},
+                        {"day": "Day 12", "topic": "Pandas Missing Data & Cleaning", "time": "2.5h"},
+                        {"day": "Day 13", "topic": "Review & Week 2 Mini-Project", "time": "3h"},
+                        {"day": "Day 14", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 3,
+                    "theme": "Data Visualization",
+                    "days": [
+                        {"day": "Day 15", "topic": "Matplotlib Basics", "time": "2.5h"},
+                        {"day": "Day 16", "topic": "Subplots & Customization", "time": "2.5h"},
+                        {"day": "Day 17", "topic": "Seaborn Introduction", "time": "2.5h"},
+                        {"day": "Day 18", "topic": "Categorical & Distribution Plots", "time": "2.5h"},
+                        {"day": "Day 19", "topic": "Heatmaps & Correlation", "time": "2.5h"},
+                        {"day": "Day 20", "topic": "Exploratory Data Analysis (EDA) Project", "time": "3h"},
+                        {"day": "Day 21", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 4,
+                    "theme": "Statistics Fundamentals",
+                    "days": [
+                        {"day": "Day 22", "topic": "Descriptive Statistics", "time": "2.5h"},
+                        {"day": "Day 23", "topic": "Probability Basics", "time": "2.5h"},
+                        {"day": "Day 24", "topic": "Probability Distributions (Normal, Binomial)", "time": "2.5h"},
+                        {"day": "Day 25", "topic": "Hypothesis Testing (t-tests)", "time": "2.5h"},
+                        {"day": "Day 26", "topic": "Correlation vs Causation & ANOVA", "time": "2.5h"},
+                        {"day": "Day 27", "topic": "Stats Mini-Project", "time": "3h"},
+                        {"day": "Day 28", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                 {
+                    "week_num": 5,
+                    "theme": "Unsupervised Learning: Clustering",
+                    "days": [
+                        {"day": "Day 29", "topic": "Intro to Unsupervised Learning", "time": "2.5h"},
+                        {"day": "Day 30", "topic": "K-Means Clustering", "time": "2.5h"},
+                        {"day": "Day 31", "topic": "Choosing K (Elbow Method)", "time": "2.5h"},
+                        {"day": "Day 32", "topic": "Hierarchical Clustering", "time": "2.5h"},
+                        {"day": "Day 33", "topic": "DBSCAN", "time": "2.5h"},
+                        {"day": "Day 34", "topic": "Clustering Project", "time": "3h"},
+                        {"day": "Day 35", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                 {
+                    "week_num": 6,
+                    "theme": "Dimensionality Reduction",
+                    "days": [
+                        {"day": "Day 36", "topic": "Curse of Dimensionality & PCA Theory", "time": "2.5h"},
+                        {"day": "Day 37", "topic": "Implementing PCA in Python", "time": "2.5h"},
+                        {"day": "Day 38", "topic": "Explained Variance", "time": "2.5h"},
+                        {"day": "Day 39", "topic": "t-SNE & UMAP (Visualization)", "time": "2.5h"},
+                        {"day": "Day 40", "topic": "Feature Selection Techniques", "time": "2.5h"},
+                        {"day": "Day 41", "topic": "Module 1 Capstone", "time": "3h"},
+                        {"day": "Day 42", "topic": "Rest Day", "time": "0h"}
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Module 2: Solving Business Problems with Supervised Learning",
+            "duration": "Weeks 7-12 (Month 2 [part] - Month 3)",
+            "weeks": [
+                {
+                    "week_num": 7,
+                    "theme": "Linear Regression",
+                    "days": [
+                        {"day": "Day 43", "topic": "Simple Linear Regression", "time": "2.5h"},
+                        {"day": "Day 44", "topic": "Multiple Linear Regression", "time": "2.5h"},
+                        {"day": "Day 45", "topic": "Regression Metrics (MSE, RMSE, R2, MAE)", "time": "2.5h"},
+                        {"day": "Day 46", "topic": "Polynomial Regression", "time": "2.5h"},
+                        {"day": "Day 47", "topic": "Regularization (Lasso/Ridge)", "time": "2.5h"},
+                        {"day": "Day 48", "topic": "Regression Project", "time": "3h"},
+                        {"day": "Day 49", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 8,
+                    "theme": "Classification Basics",
+                    "days": [
+                        {"day": "Day 50", "topic": "Logistic Regression Theory", "time": "2.5h"},
+                        {"day": "Day 51", "topic": "Implementing Logistic Regression", "time": "2.5h"},
+                        {"day": "Day 52", "topic": "Classification Metrics (Accuracy, Precision, Recall)", "time": "2.5h"},
+                        {"day": "Day 53", "topic": "ROC Curve & AUC", "time": "2.5h"},
+                        {"day": "Day 54", "topic": "K-Nearest Neighbors (KNN)", "time": "2.5h"},
+                        {"day": "Day 55", "topic": "Classification Mini-Project", "time": "3h"},
+                        {"day": "Day 56", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 9,
+                    "theme": "Support Vector Machines (SVM)",
+                    "days": [
+                        {"day": "Day 57", "topic": "SVM Intuition & Margins", "time": "2.5h"},
+                        {"day": "Day 58", "topic": "Kernels (Linear, RBF, Poly)", "time": "2.5h"},
+                        {"day": "Day 59", "topic": "SVM Hyperparameters (C, Gamma)", "time": "2.5h"},
+                        {"day": "Day 60", "topic": "SVM for Regression (SVR)", "time": "2.5h"},
+                        {"day": "Day 61", "topic": "Review SVM", "time": "2.5h"},
+                        {"day": "Day 62", "topic": "Weekly Challenge", "time": "3h"},
+                        {"day": "Day 63", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 10,
+                    "theme": "Decision Trees & Random Forests",
+                    "days": [
+                        {"day": "Day 64", "topic": "Decision Trees Theory (Entropy, Gini)", "time": "2.5h"},
+                        {"day": "Day 65", "topic": "Implementing Decision Trees", "time": "2.5h"},
+                        {"day": "Day 66", "topic": "Overfitting & Pruning", "time": "2.5h"},
+                        {"day": "Day 67", "topic": "Random Forest Theory (Bagging)", "time": "2.5h"},
+                        {"day": "Day 68", "topic": "Implementing Random Forests", "time": "2.5h"},
+                        {"day": "Day 69", "topic": "Tree Project", "time": "3h"},
+                        {"day": "Day 70", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 11,
+                    "theme": "Ensemble Methods (Boosting)",
+                    "days": [
+                        {"day": "Day 71", "topic": "Boosting Intuition (AdaBoost)", "time": "2.5h"},
+                        {"day": "Day 72", "topic": "Gradient Boosting", "time": "2.5h"},
+                        {"day": "Day 73", "topic": "XGBoost (Extreme Gradient Boosting)", "time": "2.5h"},
+                        {"day": "Day 74", "topic": "LightGBM & CatBoost", "time": "2.5h"},
+                        {"day": "Day 75", "topic": "Stacking & Voting Classifiers", "time": "2.5h"},
+                        {"day": "Day 76", "topic": "Ensemble Project", "time": "3h"},
+                        {"day": "Day 77", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 12,
+                    "theme": "Model Validation & Tuning",
+                    "days": [
+                        {"day": "Day 78", "topic": "Cross-Validation Strategies", "time": "2.5h"},
+                        {"day": "Day 79", "topic": "Hyperparameter Tuning (GridSearchCV)", "time": "2.5h"},
+                        {"day": "Day 80", "topic": "RandomizedSearchCV", "time": "2.5h"},
+                        {"day": "Day 81", "topic": "Pipelines in Scikit-Learn", "time": "2.5h"},
+                        {"day": "Day 82", "topic": "Handling Class Imbalance", "time": "2.5h"},
+                        {"day": "Day 83", "topic": "Module 2 Capstone", "time": "3h"},
+                        {"day": "Day 84", "topic": "Rest Day", "time": "0h"}
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Module 3: Applying Advanced Data Science Techniques",
+            "duration": "Weeks 13-22 (Months 4-5)",
+            "weeks": [
+                {
+                    "week_num": 13,
+                    "theme": "Introduction to Neural Networks",
+                    "days": [
+                        {"day": "Day 85", "topic": "The Perceptron", "time": "2.5h"},
+                        {"day": "Day 86", "topic": "Multi-Layer Perceptron (MLP)", "time": "2.5h"},
+                        {"day": "Day 87", "topic": "Activation Functions (Sigmoid, ReLU)", "time": "2.5h"},
+                        {"day": "Day 88", "topic": "Loss Functions & Backpropagation", "time": "2.5h"},
+                        {"day": "Day 89", "topic": "Optimizers (SGD, Adam)", "time": "2.5h"},
+                        {"day": "Day 90", "topic": "Intro NN Project", "time": "3h"},
+                        {"day": "Day 91", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 14,
+                    "theme": "Deep Learning with TensorFlow/Keras",
+                    "days": [
+                        {"day": "Day 92", "topic": "TensorFlow/Keras Setup & Basics", "time": "2.5h"},
+                        {"day": "Day 93", "topic": "Building a Neural Net in Keras", "time": "2.5h"},
+                        {"day": "Day 94", "topic": "Training & Validation Splitting", "time": "2.5h"},
+                        {"day": "Day 95", "topic": "Early Stopping & Model Checkpoints", "time": "2.5h"},
+                        {"day": "Day 96", "topic": "Dropout & Regularization in DL", "time": "2.5h"},
+                        {"day": "Day 97", "topic": "Keras Project", "time": "3h"},
+                        {"day": "Day 98", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 15,
+                    "theme": "Computer Vision (CNNs)",
+                    "days": [
+                        {"day": "Day 99", "topic": "Convolution Operation", "time": "2.5h"},
+                        {"day": "Day 100", "topic": "Pooling Layers & Strides", "time": "2.5h"},
+                        {"day": "Day 101", "topic": "Building a CNN in Keras", "time": "2.5h"},
+                        {"day": "Day 102", "topic": "Data Augmentation", "time": "2.5h"},
+                        {"day": "Day 103", "topic": "Transfer Learning (VGG16, ResNet)", "time": "2.5h"},
+                        {"day": "Day 104", "topic": "CV Project", "time": "3h"},
+                        {"day": "Day 105", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 16,
+                    "theme": "Sequential Data (RNNs/LSTMs)",
+                    "days": [
+                        {"day": "Day 106", "topic": "RNN Intuition", "time": "2.5h"},
+                        {"day": "Day 107", "topic": "LSTMs (Long Short-Term Memory)", "time": "2.5h"},
+                        {"day": "Day 108", "topic": "GRUs (Gated Recurrent Units)", "time": "2.5h"},
+                        {"day": "Day 109", "topic": "Time Series Prediction with LSTM", "time": "2.5h"},
+                        {"day": "Day 110", "topic": "Sequence Classification (Text)", "time": "2.5h"},
+                        {"day": "Day 111", "topic": "RNN Project", "time": "3h"},
+                        {"day": "Day 112", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 17,
+                    "theme": "Natural Language Processing (NLP)",
+                    "days": [
+                        {"day": "Day 113", "topic": "NLP Basics: Text Preprocessing", "time": "2.5h"},
+                        {"day": "Day 114", "topic": "Bag of Words & TF-IDF", "time": "2.5h"},
+                        {"day": "Day 115", "topic": "Word Embeddings (Word2Vec, GloVe)", "time": "2.5h"},
+                        {"day": "Day 116", "topic": "Seq2Seq Models", "time": "2.5h"},
+                        {"day": "Day 117", "topic": "Attention Mechanism", "time": "2.5h"},
+                        {"day": "Day 118", "topic": "NLP Project", "time": "3h"},
+                        {"day": "Day 119", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 18,
+                    "theme": "Advanced NLP (Transformers)",
+                    "days": [
+                        {"day": "Day 120", "topic": "The Transformer Architecture", "time": "2.5h"},
+                        {"day": "Day 121", "topic": "BERT (Bidirectional Encoder)", "time": "2.5h"},
+                        {"day": "Day 122", "topic": "Hugging Face Transformers Lib", "time": "2.5h"},
+                        {"day": "Day 123", "topic": "Fine-Tuning BERT", "time": "2.5h"},
+                        {"day": "Day 124", "topic": "Variables: GPT (Generative Pre-trained)", "time": "2.5h"},
+                        {"day": "Day 125", "topic": "Transformers Project", "time": "3h"},
+                        {"day": "Day 126", "topic": "Rest Day", "time": "0h"}
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Module 4: Future of Data Science + Capstone",
+            "duration": "Weeks 19-28 (Months 5-7)",
+            "weeks": [
+                {
+                    "week_num": 19,
+                    "theme": "Time Series Analysis (Detailed)",
+                    "days": [
+                        {"day": "Day 127", "topic": "Time Series components", "time": "2.5h"},
+                        {"day": "Day 128", "topic": "Stationarity & Differencing", "time": "2.5h"},
+                        {"day": "Day 129", "topic": "ARIMA/SARIMA Models", "time": "2.5h"},
+                        {"day": "Day 130", "topic": "Facebook Prophet", "time": "2.5h"},
+                        {"day": "Day 131", "topic": "Machine Learning for Time Series", "time": "2.5h"},
+                        {"day": "Day 132", "topic": "Time Series Project", "time": "3h"},
+                        {"day": "Day 133", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                 {
+                    "week_num": 20,
+                    "theme": "Recommender Systems",
+                    "days": [
+                        {"day": "Day 134", "topic": "Recommendation Types", "time": "2.5h"},
+                        {"day": "Day 135", "topic": "Content-Based Filtering", "time": "2.5h"},
+                        {"day": "Day 136", "topic": "Collaborative Filtering (User-Item)", "time": "2.5h"},
+                        {"day": "Day 137", "topic": "Singular Value Decomposition (SVD)", "time": "2.5h"},
+                        {"day": "Day 138", "topic": "Deep Learning for RecSys", "time": "2.5h"},
+                        {"day": "Day 139", "topic": "RecSys Project", "time": "3h"},
+                        {"day": "Day 140", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 21,
+                    "theme": "Generative AI & LLMs",
+                    "days": [
+                        {"day": "Day 141", "topic": "Generative AI Landscape", "time": "2.5h"},
+                        {"day": "Day 142", "topic": "Prompt Engineering Basics", "time": "2.5h"},
+                        {"day": "Day 143", "topic": "Chain of Thought & Advanced Prompting", "time": "2.5h"},
+                        {"day": "Day 144", "topic": "LangChain Basics", "time": "2.5h"},
+                        {"day": "Day 145", "topic": "RAG (Retrieval Augmented Generation)", "time": "2.5h"},
+                        {"day": "Day 146", "topic": "GenAI Project", "time": "3h"},
+                        {"day": "Day 147", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 22,
+                    "theme": "Reinforcement Learning (RL)",
+                    "days": [
+                        {"day": "Day 148", "topic": "RL Basics (Agent, Environment, Reward)", "time": "2.5h"},
+                        {"day": "Day 149", "topic": "Q-Learning", "time": "2.5h"},
+                        {"day": "Day 150", "topic": "Deep Q-Networks (DQN)", "time": "2.5h"},
+                        {"day": "Day 151", "topic": "RLHF (RL from Human Feedback)", "time": "2.5h"},
+                        {"day": "Day 152", "topic": "Policy Gradient Methods", "time": "2.5h"},
+                        {"day": "Day 153", "topic": "RL Mini-Experiment", "time": "3h"},
+                        {"day": "Day 154", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 23,
+                    "theme": "ML Engineering & Deployment",
+                    "days": [
+                        {"day": "Day 155", "topic": "Pickling & Saving Models", "time": "2.5h"},
+                        {"day": "Day 156", "topic": "Flask/FastAPI Basics", "time": "2.5h"},
+                        {"day": "Day 157", "topic": "Serving a Model as API", "time": "2.5h"},
+                        {"day": "Day 158", "topic": "Docker Basics", "time": "2.5h"},
+                        {"day": "Day 159", "topic": "Cloud Deployment (Intro)", "time": "2.5h"},
+                        {"day": "Day 160", "topic": "Deployment Project", "time": "3h"},
+                        {"day": "Day 161", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 24,
+                    "theme": "Capstone: Definition & Data",
+                    "days": [
+                        {"day": "Day 162", "topic": "Problem Identification", "time": "2.5h"},
+                        {"day": "Day 163", "topic": "Literature Review / Market Research", "time": "2.5h"},
+                        {"day": "Day 164", "topic": "Data Collection Plan", "time": "2.5h"},
+                        {"day": "Day 165", "topic": "Data Acquisition", "time": "2.5h"},
+                        {"day": "Day 166", "topic": "Initial Data Assessment", "time": "2.5h"},
+                        {"day": "Day 167", "topic": "Capstone Milestone 1", "time": "3h"},
+                        {"day": "Day 168", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 25,
+                    "theme": "Capstone: Cleaning & EDA",
+                    "days": [
+                        {"day": "Day 169", "topic": "Deep Data Cleaning", "time": "2.5h"},
+                        {"day": "Day 170", "topic": "Feature Engineering Strategy", "time": "2.5h"},
+                        {"day": "Day 171", "topic": "Implementing Feature Engineering", "time": "2.5h"},
+                        {"day": "Day 172", "topic": "Exploratory Data Analysis (Univariate)", "time": "2.5h"},
+                        {"day": "Day 173", "topic": "Exploratory Data Analysis (Multivariate)", "time": "2.5h"},
+                        {"day": "Day 174", "topic": "Capstone Milestone 2", "time": "3h"},
+                        {"day": "Day 175", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 26,
+                    "theme": "Capstone: Modeling V1",
+                    "days": [
+                        {"day": "Day 176", "topic": "Baseline Model", "time": "2.5h"},
+                        {"day": "Day 177", "topic": "Model Selection", "time": "2.5h"},
+                        {"day": "Day 178", "topic": "Model Evaluation", "time": "2.5h"},
+                        {"day": "Day 179", "topic": "Error Analysis", "time": "2.5h"},
+                        {"day": "Day 180", "topic": "Hyperparameter Tuning", "time": "2.5h"},
+                        {"day": "Day 181", "topic": "Capstone Milestone 3", "time": "3h"},
+                        {"day": "Day 182", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                {
+                    "week_num": 27,
+                    "theme": "Capstone: Optimization & Validation",
+                    "days": [
+                        {"day": "Day 183", "topic": "Advanced Feature Selection", "time": "2.5h"},
+                        {"day": "Day 184", "topic": "Ensembling (Optional)", "time": "2.5h"},
+                        {"day": "Day 185", "topic": "Final Evaluation on Test Set", "time": "2.5h"},
+                        {"day": "Day 186", "topic": "Interpretability", "time": "2.5h"},
+                        {"day": "Day 187", "topic": "Model Documentation", "time": "2.5h"},
+                        {"day": "Day 188", "topic": "Capstone Milestone 4", "time": "3h"},
+                        {"day": "Day 189", "topic": "Rest Day", "time": "0h"}
+                    ]
+                },
+                 {
+                    "week_num": 28,
+                    "theme": "Capstone: Presentation & Portfolio",
+                    "days": [
+                        {"day": "Day 190", "topic": "Building a Demo (Streamlit)", "time": "2.5h"},
+                        {"day": "Day 191", "topic": "Deployment Finalization", "time": "2.5h"},
+                        {"day": "Day 192", "topic": "Presentation Structure", "time": "2.5h"},
+                        {"day": "Day 193", "topic": "Creating Slides", "time": "2.5h"},
+                        {"day": "Day 194", "topic": "GitHub Profile Polish", "time": "2.5h"},
+                        {"day": "Day 195", "topic": "Mock Presentation / Video", "time": "3h"},
+                        {"day": "Day 196", "topic": "CELEBRATE", "time": "0h"}
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+        // Render Function
+        function renderCurriculum() {
+            const container = document.getElementById('accordion-container');
+            
+            PLAN_DATA.modules.forEach((module, index) => {
+                // Create Module Header
+                const moduleContainer = document.createElement('div');
+                moduleContainer.className = 'module-container';
+                
+                const header = document.createElement('div');
+                header.className = 'module-header';
+                header.innerHTML = `
+                    <div class="module-title">
+                        <span>${module.name}</span>
+                        <span class="module-duration">${module.duration}</span>
+                    </div>
+                    <div class="module-icon toggle-icon">▼</div>
+                `;
+                
+                const content = document.createElement('div');
+                content.className = 'module-content';
+                
+                // Create Weeks List
+                const weekList = document.createElement('ul');
+                weekList.className = 'week-list';
+                
+                module.weeks.forEach(week => {
+                    const weekItem = document.createElement('li');
+                    weekItem.className = 'week-item';
+                    
+                    let daysHtml = '';
+                    week.days.forEach(day => {
+                        daysHtml += `
+                            <div class="day-card">
+                                <div class="day-title">${day.day}</div>
+                                <div class="day-topic">${day.topic}</div>
+                                <div class="day-meta">
+                                    <span>${day.time}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    weekItem.innerHTML = `
+                        <div class="week-header">Week ${week.week_num}: ${week.theme}</div>
+                        <div class="day-grid">
+                            ${daysHtml}
+                        </div>
+                    `;
+                    weekList.appendChild(weekItem);
+                });
+                
+                content.appendChild(weekList);
+                moduleContainer.appendChild(header);
+                moduleContainer.appendChild(content);
+                container.appendChild(moduleContainer);
+
+                // Add Click Event
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isActive = content.style.maxHeight;
+                    
+                    // Close all others (optional - keeping it simple for now to allow multiple open)
+                    // document.querySelectorAll('.module-content').forEach(c => c.style.maxHeight = null);
+                    
+                    if (isActive) {
+                        content.style.maxHeight = null;
+                        content.classList.remove('active');
+                        icon.classList.remove('rotated');
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        content.classList.add('active');
+                        icon.classList.add('rotated');
+                    }
+                });
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderCurriculum);
+    </script>
+</body>
+</html>
