@@ -1,9 +1,8 @@
 __pycache__/
 .DS_Store
 *.pdf
-Month_*/
-generate_*.py
-*plan_data.py
-organize_pdfs.py
-pdf_generator.py
+Month_*/*
+!Month_*/Excercises/
+utils/
 index.html
+.idea/
