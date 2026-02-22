@@ -6,3 +6,5 @@ Month_*/*
 utils/
 index.html
 .idea/
+.venv/
+.ipynb_checkpoints/
